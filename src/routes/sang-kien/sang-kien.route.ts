@@ -13,6 +13,9 @@ router.get(
 );
 router.get('/:id',sangKienController.detail)
 
-router.post('/', upload.array('images', 10), sangKienController.create);
+router.post('/', upload.fields([
+    { name: 'images', maxCount: 5 }, // Up to 5 images
+    { name: 'sounds', maxCount: 3 },  // Up to 3 MP3 files
+  ]), sangKienController.create);
 
 export default router;
