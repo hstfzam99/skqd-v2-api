@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 // Entities
-import { BaseEntity } from '../base/base.entity';
+import { BaseEntity } from './base/base.entity';
 
 @Entity('sang_kien', { orderBy: { id: 'DESC' } })
 export class SangKien extends BaseEntity {
@@ -15,6 +15,12 @@ export class SangKien extends BaseEntity {
   @Column({ length: 255, nullable: false })
   author: string;
   
+  @Column({ length: 255, nullable: false })
+  thumb: string;
+
+  @Column({ length: 255, nullable: false })
+  sound: string;
+
   @Column({ default: false })
   isDeleted: boolean;
 

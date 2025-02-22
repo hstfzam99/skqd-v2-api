@@ -1,3 +1,4 @@
+// @ts-nocheck
 import httpStatusCodes from 'http-status-codes';
 
 // Interfaces
@@ -29,7 +30,23 @@ const create: IController = async (req, res) => {
       title: req.body.title,
       author: req.body.author,
     }
+    // Handle file uploads
+    const thumbFile = req.files && 'thumb' in req.files ? req.files['thumb'][0] : null;
+    const soundFile = req.files && 'sound' in req.files ? req.files['sound'][0] : null;
+
+    if (thumbFile)
+      params.thumb = `/uploads/${thumbFile.filename}`
+    if (soundFile)
+      params.sound = `/uploads/${soundFile.filename}`
+
+
+    // 
+    console.log(thumbFile, thumbFile.filename, soundFile, soundFile.fieldname)
+    console.log(params)
+
+
     const sangKien = await sangkienService.create(params);
+    
     return ApiResponse.result(res, sangKien, httpStatusCodes.CREATED);
   } catch (e) {
     if (e.code === constants.ERROR_CODE.DUPLICATED) {

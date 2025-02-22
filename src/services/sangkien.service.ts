@@ -1,26 +1,20 @@
 import { getRepository } from 'typeorm';
 
 // Entities
-import { User } from '../entities/user/user.entity';
+import { SangKien } from '../entities/sang-kien.entity';
 
 // Utilities
-import Encryption from '../utilities/encryption.utility';
-import ApiUtility from '../utilities/api.utility';
 import DateTimeUtility from '../utilities/date-time.utility';
 
 // Interfaces
-import {
-  ICreateUser,
-  ILoginUser,
-  IUpdateUser,
-  IUserQueryParams,
-} from '../interfaces/user.interface';
 import { IDeleteById, IDetailById } from '../interfaces/common.interface';
+import {
+  IUserQueryParams
+} from '../interfaces/user.interface';
 
 // Errors
-import { StringError } from '../errors/string.error';
-import { SangKien } from '../entities/user/sang-kien.entity';
 import { ICreateSangKien, IUpdateSangKien } from 'sang-kien.interface';
+import { StringError } from '../errors/string.error';
 
 const where = { isDeleted: false };
 
@@ -28,6 +22,13 @@ const create = async (params: ICreateSangKien) => {
   const item = new SangKien();
   item.title = params.title;
   item.author = params.author;
+
+  if (params.thumb)
+    item.thumb = params.thumb
+
+  if (params.sound)
+    item.sound = params.sound
+
   const newRecord = await getRepository(SangKien).save(item);
   return newRecord;
 };
@@ -84,7 +85,7 @@ const list = async (params: IUserQueryParams) => {
   // Pagination
   const sangKiens = await sangKienRepo.getMany();
 
- 
+
   return { sangKiens };
 };
 

@@ -1,4 +1,4 @@
-import { SangKien } from "../entities/user/sang-kien.entity";
+import { SangKien } from "../entities/sang-kien.entity";
 import { sangKienSeed } from "../seeds/admin.seed";
 import { getRepository, MigrationInterface, QueryRunner } from "typeorm";
 

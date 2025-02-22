@@ -8,14 +8,11 @@ import { upload } from '../../middlewares/multer.middleware';
 const router = express.Router();
 
 router.get(
-    '/',
-    sangKienController.list,
+  '/',
+  sangKienController.list,
 );
-router.get('/:id',sangKienController.detail)
+router.get('/:id', sangKienController.detail)
 
-router.post('/', upload.fields([
-    { name: 'images', maxCount: 5 }, // Up to 5 images
-    { name: 'sounds', maxCount: 3 },  // Up to 3 MP3 files
-  ]), sangKienController.create);
+router.post('/', upload.fields([{ name: 'thumb' }, { name: 'sound' }]), sangKienController.create);
 
 export default router;

@@ -40,7 +40,6 @@ app.use(morgan('dev'));
 
 // Serve static files from the uploads directory
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
-console.log('Serving uploads from:', path.join(__dirname, '../uploads'));
 
 // Router
 app.use(constants.APPLICATION.url.basePath, indexRoute);
