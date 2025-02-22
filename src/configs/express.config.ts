@@ -1,13 +1,12 @@
 import * as bodyParser from 'body-parser';
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
 import morgan from 'morgan';
 
-import authenticate from '../middlewares/authenticate.middleware';
 import constants from '../constants';
-import indexRoute from '../routes/index.route';
+import { errorHandler, notFoundErrorHandler } from '../middlewares/api-error-handler.middleware';
 import joiErrorHandler from '../middlewares/joi-error-handler.middleware';
-import { notFoundErrorHandler, errorHandler } from '../middlewares/api-error-handler.middleware';
+import indexRoute from '../routes/index.route';
 
 const app = express();
 
@@ -37,8 +36,6 @@ app.use(cors(corsOption));
 app.use(bodyParser.json());
 
 app.use(morgan('dev'));
-
-app.use(authenticate);
 
 // Router
 app.use(constants.APPLICATION.url.basePath, indexRoute);
