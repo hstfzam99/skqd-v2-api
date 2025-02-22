@@ -23,6 +23,7 @@ import { ICreateSangKien } from '../interfaces/sang-kien.interface';
 import sangkienService from '../services/sangkien.service';
 
 const create: IController = async (req, res) => {
+  console.log('create controller reached')
   try {
     const params: ICreateSangKien = {
       title: req.body.title,

@@ -2,6 +2,7 @@ import * as bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
+import path from 'path';
 
 import constants from '../constants';
 import { errorHandler, notFoundErrorHandler } from '../middlewares/api-error-handler.middleware';
@@ -37,6 +38,10 @@ app.use(bodyParser.json());
 
 app.use(morgan('dev'));
 
+// Serve static files from the uploads directory
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+console.log('Serving uploads from:', path.join(__dirname, '../uploads'));
+
 // Router
 app.use(constants.APPLICATION.url.basePath, indexRoute);
 
@@ -46,5 +51,6 @@ app.use(joiErrorHandler);
 // Error Handler
 app.use(notFoundErrorHandler);
 app.use(errorHandler);
+
 
 export default app;

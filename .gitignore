@@ -5,3 +5,5 @@ migration/
 dist/
 coverage/*
 .env
+
+uploads/
